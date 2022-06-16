@@ -1,6 +1,7 @@
 from multiprocessing import reduction
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from .models import Producto
 
 from Almacen.forms import AbonoForm, ClienteForm, DeudaForm, OrdenForm, ProveedorForm, ProductoForm
 
@@ -75,3 +76,9 @@ def orden_view(request):
         form = OrdenForm()
 
     return render(request, 'almacen/general_form.html', {'form':form})
+
+
+def MostrarProd(request):
+    productosListados =Producto.objects.all()
+
+    return render(request, 'almacen/listado_prod.html', {'productos':productosListados})
