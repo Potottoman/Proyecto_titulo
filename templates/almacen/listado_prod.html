@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <body class="margin">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo de barras</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in productos%}
+                <tr class="table-active">
+                    <th scope="row">{{c.codigo_barra}}</th>
+                    <td>{{c.nombre}}</td>
+                    <td>{{c.precio_venta}}</td>
+                    <td>{{c.stock}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </body>
+{% endblock %}

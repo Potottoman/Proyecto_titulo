@@ -26,4 +26,5 @@ urlpatterns = [
     path('adddeuda/', views.deuda_view , name='add_deuda'),
     path('addabono/', views.abono_view , name='add_abono'),
     path('addorden/', views.orden_view , name='add_orden'),
+    path('listaProd/', views.MostrarProd , name='Mostrar_prod'),
 ]
