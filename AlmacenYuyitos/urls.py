@@ -27,4 +27,7 @@ urlpatterns = [
     path('addabono/', views.abono_view , name='add_abono'),
     path('addorden/', views.orden_view , name='add_orden'),
     path('listaProd/', views.MostrarProd , name='Mostrar_prod'),
+    path('listaCli/', views.listar_cliente , name='lista_cliente'),
+    path('eliminarCliente/<id>', views.eliminar_cliente , name='eliminar_cliente'),
+    path('editarCliente/<id>', views.editar_cliente , name='editar_cliente'),
 ]

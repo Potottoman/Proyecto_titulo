@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <body>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">RUT</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in clientes %}
+                <tr class="table-active">
+                    <th scope="row">{{c.id}}</th>
+                    <td>{{c.rut}}</td>
+                    <td>{{c.nombre}}</td>
+                    <td>{{c.apellido}}</td>
+                    <td>{{c.mail}}</td>
+                    <td>
+                        <a href="{% url 'editar_cliente' c.id %}">Editar</a>
+                        <a href="{% url 'eliminar_cliente' c.id %}">Eliminar</a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </body>
+{% endblock %}

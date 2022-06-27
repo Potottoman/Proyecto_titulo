@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
@@ -81,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'almacenyuyitos',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
         'DATABASE_PORT': '5432',
     }
