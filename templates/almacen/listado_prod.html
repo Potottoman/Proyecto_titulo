@@ -1,34 +1,43 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
-    <body>
-=======
-    <body class="margin">
->>>>>>> jose
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Codigo de barras</th>
-<<<<<<< HEAD
-                    <th scope="col">Nombre</th>
-=======
-                    <th scope="col">Producto</th>
->>>>>>> jose
-                    <th scope="col">Precio</th>
-                    <th scope="col">Stock</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for c in productos%}
-                <tr class="table-active">
-                    <th scope="row">{{c.codigo_barra}}</th>
-                    <td>{{c.nombre}}</td>
-                    <td>{{c.precio_venta}}</td>
-                    <td>{{c.stock}}</td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
-    </body>
+<div class="container">
+    <div class="row">
+        <div class="col-8 card border-primary mb-3" >
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Codigo de barras</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in productos%}
+                        <tr class="table-active">
+                            <th scope="row">{{c.codigo_barra}}</th>
+                            <td>{{c.nombre}}</td>
+                            <td>{{c.precio_venta}}</td>
+                            <td>{{c.stock}}</td>
+                            <td>
+                                <button type="button" class="btn btn-success">Agregar</button>
+                            </td>
+                        </tr>
+
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-4 card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
