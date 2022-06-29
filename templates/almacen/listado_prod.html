@@ -1,43 +1,45 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-8 card border-primary mb-3" >
-            <div class="card-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Codigo de barras</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Stock</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for c in productos%}
-                        <tr class="table-active">
-                            <th scope="row">{{c.codigo_barra}}</th>
-                            <td>{{c.nombre}}</td>
-                            <td>{{c.precio_venta}}</td>
-                            <td>{{c.stock}}</td>
-                            <td>
-                                <button type="button" class="btn btn-success">Agregar</button>
-                            </td>
-                        </tr>
 
-                        {%endfor%}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-4 card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
+
+<body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% for m in messages %}
+    <script>
+        Swal.fire(
+            '¡Hecho!',
+            '{{m}}',
+            'success'
+        )
+    </script>
+    {% endfor %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Codigo de barras</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in productos %}
+            <tr class="table-active">
+                <th scope="row">{{c.codigo_barra}}</th>
+                <td>{{c.nombre}}</td>
+                <td>{{c.precio_venta}}</td>
+                <td>{{c.stock}}</td>
+                <td>
+                    <a href="{% url 'agregar_prod' c.id %}">Agregar al carro</a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    {% include "almacen/carrito.html" %}{% endblock %}
+</body>
+
+
+

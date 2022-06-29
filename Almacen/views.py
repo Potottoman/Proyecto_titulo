@@ -5,6 +5,8 @@ from multiprocessing import reduction
 from ssl import ALERT_DESCRIPTION_ACCESS_DENIED
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
+
+from Almacen.Carrito import Carrito
 from .models import Producto, Cliente
 from django.contrib import messages
 
@@ -36,20 +38,31 @@ def producto_view(request):
         form = ProductoForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('index')
+            messages.success(request, 'Producto agregado correctamente.')
+            return redirect('Mostrar_prod')
     else:
         form = ProductoForm()
 
     return render(request, 'almacen/general_form.html', {'form':form})    
 
+def listar_productos(request):
+    listaProductos = Producto.objects.all()
+
+    data = {
+        'productos': listaProductos
+    }
+
+    return render(request, 'almacen/lista_prod.html', data)
+
 
 def cliente_view(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)             
-        if form.is_valid():  
+
+        if form.is_valid():                         
 
             form.save()  
-            messages.success(request, "Usuario agregado")
+            messages.success(request, "Cliente agregado correctamente.")
             return redirect('lista_cliente')
     else:
         form = ClienteForm()
@@ -67,6 +80,7 @@ def editar_cliente(request, id):
         formulario = ClienteForm(data=request.POST, instance=cliente)
         if formulario.is_valid():
             formulario.save()
+            messages.success(request, "Cliente editado correctamente.")
             return redirect('lista_cliente')
         data["form"] = formulario
     
@@ -85,8 +99,7 @@ def listar_cliente(request):
 def eliminar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     cliente.delete()
-    
-
+    messages.success(request, "Cliente Eliminado")
     return redirect('lista_cliente')
 
 
@@ -128,3 +141,27 @@ def MostrarProd(request):
     productosListados =Producto.objects.all()
 
     return render(request, 'almacen/listado_prod.html', {'productos':productosListados})
+
+
+def agregar_producto(request, id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id=id)
+    carrito.agregar(producto)
+    return redirect("Mostrar_prod")
+
+def eliminar_producto(request, id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id=id)
+    carrito.eliminar(producto)
+    return redirect("Mostrar_prod")
+
+def restar_producto(request, id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id=id)
+    carrito.restar(producto)
+    return redirect("Mostrar_prod")
+
+def limpiar_carrito(request):
+    carrito = Carrito(request)
+    carrito.limpiar()
+    return redirect("Mostrar_prod")

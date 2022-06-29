@@ -22,6 +22,12 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('agregaProducto/<id>', views.agregar_producto , name='agregar_prod'),
+    path('eliminarProducto/<id>', views.eliminar_producto , name='eliminar_prod'),
+    path('restarProducto/<id>', views.restar_producto , name='restar_prod'),
+    path('limpiarProducto/', views.limpiar_carrito , name='limpiar_prod'),
+
     path('', login_required(views.index), name = 'index'),
     path('addprov/', login_required(views.proveedor_view) , name = 'add_proveedor'),
     path('addprod/', login_required(views.producto_view) , name = 'add_producto'),
@@ -35,4 +41,5 @@ urlpatterns = [
     path('editarCliente/<id>', login_required(views.editar_cliente) , name = 'editar_cliente'),
     path('accounts/login/', LoginView.as_view(template_name='almacen/login.html'), name = 'login'),
     path('logout/', logout_then_login, name = 'logout'),
-]
+
+] 
