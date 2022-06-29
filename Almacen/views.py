@@ -1,4 +1,5 @@
 from asyncio import sleep
+import imp
 import importlib
 from multiprocessing import reduction
 from ssl import ALERT_DESCRIPTION_ACCESS_DENIED
@@ -8,6 +9,8 @@ from django.http import HttpResponse
 from Almacen.Carrito import Carrito
 from .models import Producto, Cliente
 from django.contrib import messages
+
+
 
 
 
@@ -55,7 +58,9 @@ def listar_productos(request):
 def cliente_view(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)             
+
         if form.is_valid():                         
+
             form.save()  
             messages.success(request, "Cliente agregado correctamente.")
             return redirect('lista_cliente')
