@@ -30,4 +30,8 @@ urlpatterns = [
     path('listaCli/', views.listar_cliente , name='lista_cliente'),
     path('eliminarCliente/<id>', views.eliminar_cliente , name='eliminar_cliente'),
     path('editarCliente/<id>', views.editar_cliente , name='editar_cliente'),
+    path('agregaProducto/<id>', views.agregar_producto , name='agregar_prod'),
+    path('eliminarProducto/<id>', views.eliminar_producto , name='eliminar_prod'),
+    path('restarProducto/<id>', views.restar_producto , name='restar_prod'),
+    path('limpiarProducto/', views.limpiar_carrito , name='limpiar_prod'),
 ]

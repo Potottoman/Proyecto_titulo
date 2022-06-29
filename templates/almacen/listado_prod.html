@@ -1,34 +1,43 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
-    <body>
-=======
-    <body class="margin">
->>>>>>> jose
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Codigo de barras</th>
-<<<<<<< HEAD
-                    <th scope="col">Nombre</th>
-=======
-                    <th scope="col">Producto</th>
->>>>>>> jose
-                    <th scope="col">Precio</th>
-                    <th scope="col">Stock</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for c in productos%}
-                <tr class="table-active">
-                    <th scope="row">{{c.codigo_barra}}</th>
-                    <td>{{c.nombre}}</td>
-                    <td>{{c.precio_venta}}</td>
-                    <td>{{c.stock}}</td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
-    </body>
-{% endblock %}
+
+<body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% for m in messages %}
+    <script>
+        Swal.fire(
+            '¡Hecho!',
+            '{{m}}',
+            'success'
+        )
+    </script>
+    {% endfor %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Codigo de barras</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in productos %}
+            <tr class="table-active">
+                <th scope="row">{{c.codigo_barra}}</th>
+                <td>{{c.nombre}}</td>
+                <td>{{c.precio_venta}}</td>
+                <td>{{c.stock}}</td>
+                <td>
+                    <a href="{% url 'agregar_prod' c.id %}">Agregar al carro</a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    {% include "almacen/carrito.html" %}{% endblock %}
+</body>
+
+
