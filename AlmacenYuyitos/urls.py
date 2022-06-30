@@ -34,7 +34,7 @@ urlpatterns = [
     path('editarCliente/<id>', login_required(views.editar_cliente) , name = 'editar_cliente'),
     path('accounts/login/', LoginView.as_view(template_name='almacen/login.html'), name = 'login'),
     path('logout/', logout_then_login, name = 'logout'),
-    path('factura/', views.FacturaPdf.as_view(), name = 'factura')
+    path('factura/', views.FacturaPdf.as_view(), name = 'factura'),
     path('listaProv/', views.listar_proveedor , name='lista_proveedor'),
     path('editarProveedor/<id>', views.editar_Proovedor , name='editar_proveedor'),
     path('eliminarProveedor/<id>', views.eliminar_proovedor, name='eliminar_proveedor'),
