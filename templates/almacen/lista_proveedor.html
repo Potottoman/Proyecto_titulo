@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% for m in messages %}
+    <script>
+        Swal.fire(
+            '¡Hecho!',
+            '{{m}}',
+            'success'
+        )
+    </script>
+    {% endfor %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">RUT</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Rubro</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in proveedores %}
+            <tr class="table-active">
+                <th scope="row">{{p.id}}</th>
+                <td>{{p.rut}}</td>
+                <td>{{p.nombre}}</td>
+                <td>{{p.apellido}}</td>
+                <td>{{p.mail}}</td>
+                <td>{{p.telefono}}</td>
+                <td>{{p.rubro}}</td>
+                <td>
+                    <a href="{% url 'editar_proveedor' p.id %}">Editar</a>
+                    <a href="{% url 'eliminar_proveedor' p.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</body>
+{% endblock %}
