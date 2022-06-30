@@ -1,2 +1,15 @@
 {% extends 'base/base.html' %}
-
+{% block content %}
+<body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% for m in messages %}
+    <script>
+        Swal.fire(
+            '¡Hecho!',
+            '{{m}}',
+            'success'
+        )
+    </script>
+    {% endfor %}
+</body>
+{% endblock %}

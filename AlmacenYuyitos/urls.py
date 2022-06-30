@@ -21,13 +21,6 @@ from django.contrib.auth.views import logout_then_login,LoginView
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    path('agregaProducto/<id>', views.agregar_producto , name='agregar_prod'),
-    path('eliminarProducto/<id>', views.eliminar_producto , name='eliminar_prod'),
-    path('restarProducto/<id>', views.restar_producto , name='restar_prod'),
-    path('limpiarProducto/', views.limpiar_carrito , name='limpiar_prod'),
-
     path('', login_required(views.index), name = 'index'),
     path('addprov/', login_required(views.proveedor_view) , name = 'add_proveedor'),
     path('addprod/', login_required(views.producto_view) , name = 'add_producto'),
@@ -42,5 +35,12 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(template_name='almacen/login.html'), name = 'login'),
     path('logout/', logout_then_login, name = 'logout'),
     path('factura/', views.FacturaPdf.as_view(), name = 'factura')
-
+    path('listaProv/', views.listar_proveedor , name='lista_proveedor'),
+    path('editarProveedor/<id>', views.editar_Proovedor , name='editar_proveedor'),
+    path('eliminarProveedor/<id>', views.eliminar_proovedor, name='eliminar_proveedor'),
+    path('agregaProducto/<id>', views.agregar_producto , name='agregar_prod'),
+    path('eliminarProducto/<id>', views.eliminar_producto , name='eliminar_prod'),
+    path('restarProducto/<id>', views.restar_producto , name='restar_prod'),
+    path('limpiarProducto/', views.limpiar_carrito , name='limpiar_prod'),
 ] 
+

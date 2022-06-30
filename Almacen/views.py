@@ -9,6 +9,8 @@ from django.http import HttpResponse
 from django.views import View
 
 from Almacen.Carrito import Carrito
+
+from .models import Producto, Cliente, Proveedores
 from Almacen.context_processor import total_pagar
 from Almacen.utils import render_to_pdf
 from .models import Producto, Cliente
@@ -31,6 +33,7 @@ def proveedor_view(request):
         form = ProveedorForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Proveedor agregado correctamente.')
         return redirect('index')
     else:
         form = ProveedorForm()
@@ -100,11 +103,57 @@ def listar_cliente(request):
 
     return render(request, 'almacen/lista_cliente.html', data)
 
+def listar_proveedor(request):
+    listaProveedores = Proveedores.objects.all()
+
+    data = {
+        'proveedores': listaProveedores
+    }
+
+    return render(request, 'almacen/lista_proveedor.html', data)
+
 def eliminar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     cliente.delete()
     messages.success(request, "Cliente Eliminado")
     return redirect('lista_cliente')
+
+def eliminar_proovedor(request, id):
+    proveedor = get_object_or_404(Proveedores, id=id)
+    proveedor.delete()
+    messages.success(request, "Proveedor Eliminado")
+    return redirect('lista_proveedor')
+
+def Proveedor_view(request):
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST)             
+        if form.is_valid():                         
+            form.save()  
+            messages.success(request, "Proveedor agregado correctamente.")
+            return redirect('lista_proveedor')
+    else:
+        form = ProveedorForm()
+
+    return render(request, 'almacen/general_form.html', {'form':form})
+
+def editar_Proovedor(request, id):
+    proveedor = get_object_or_404(Proveedores, id=id)
+
+    data = {
+        'form': ProveedorForm(instance=proveedor)
+    }
+
+    if request.method == 'POST':
+        formulario = ProveedorForm(data=request.POST, instance=proveedor)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Proveedor editado correctamente.")
+            return redirect('lista_proveedor')
+        data["form"] = formulario
+    
+    return render(request, 'almacen/general_form.html', data)
+
+
 
 
 def deuda_view(request):
@@ -112,6 +161,7 @@ def deuda_view(request):
         form = DeudaForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Deuda ingresada")
         return redirect('index')
     else:
         form = DeudaForm()
@@ -151,6 +201,16 @@ def agregar_producto(request, id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=id)
     carrito.agregar(producto)
+    # trae el objeto de producto
+    producto1 = Producto.objects.filter(id=id)
+    # se obtiene el valor del stock
+    stock = producto1.values()[0]["stock"]
+    # por cada click en el botón se le resta 1 al stock total
+    total = int(stock) - 1
+    # se le pasa el stock restado al producto
+    producto.stock = total
+    # se guarda en la bbdd
+    producto.save()
     return redirect("Mostrar_prod")
 
 def eliminar_producto(request, id):
@@ -169,6 +229,7 @@ def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()
     return redirect("Mostrar_prod")
+
 
 class FacturaPdf(View):
     def get(self, request, *args, **kwargs):
