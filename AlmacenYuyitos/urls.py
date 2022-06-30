@@ -41,5 +41,6 @@ urlpatterns = [
     path('editarCliente/<id>', login_required(views.editar_cliente) , name = 'editar_cliente'),
     path('accounts/login/', LoginView.as_view(template_name='almacen/login.html'), name = 'login'),
     path('logout/', logout_then_login, name = 'logout'),
+    path('factura/', views.FacturaPdf.as_view(), name = 'factura')
 
 ] 

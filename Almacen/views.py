@@ -2,11 +2,15 @@ from asyncio import sleep
 import imp
 import importlib
 from multiprocessing import reduction
+import re
 from ssl import ALERT_DESCRIPTION_ACCESS_DENIED
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
+from django.views import View
 
 from Almacen.Carrito import Carrito
+from Almacen.context_processor import total_pagar
+from Almacen.utils import render_to_pdf
 from .models import Producto, Cliente
 from django.contrib import messages
 
@@ -165,3 +169,24 @@ def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()
     return redirect("Mostrar_prod")
+
+class FacturaPdf(View):
+    def get(self, request, *args, **kwargs):
+        total = 0
+    # if request.user.is_authenticated:
+        # if "carrito" in request.session.keys():
+            
+        if "carrito" in request.session.keys():
+            for key, value in request.session["carrito"].items():
+                total += int(value["acumulado"])   
+            carrito = request.session["carrito"].items()
+            data = {
+                'carrito' : carrito,
+                'total_carrito' : total
+            }
+            pdf = render_to_pdf('Almacen/factura.html', data)
+            carritos = Carrito(request)
+            carritos.limpiar()
+            return HttpResponse(pdf,content_type='application/pdf')
+        else:
+            return None
