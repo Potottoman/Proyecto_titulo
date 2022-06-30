@@ -1,0 +1,38 @@
+<table>
+    <tr >
+        <td style="width: 60px;">
+            <img src="static/img/grocery.png"  >
+        </td>
+        <td>
+            <h2 style="font-size: 25px; padding: 10px;">Almacen Yuyitos</h2>
+        </td>
+        <td style="text-align: right;">
+            <p>Direccion: Av. Portugal 552, Santiago</p>
+            <p>Email: yuyitos@gmail.com</p>
+            <p>Telefono: +56 9 81129237</p>
+            <p>Fecha de emision : {% now "SHORT_DATETIME_FORMAT" %}</p>
+            <p>www.yuyitos.cl</p>
+        </td>
+    </tr>
+</table>
+
+<h1 style="font-size: 40px; text-align: center; ">Factura</h1>
+<table>
+        <tr style="padding-bottom: 5px ; border-bottom: solid 1px #999595; padding-top: 10px; background-color: #ade9d5;">
+            <th >NOMBRE</th>
+            <th >CANTIDAD</th>
+            <th >PRECIO</th>
+        </tr>
+    {% for key, value in carrito %}
+        <tr style="padding: 5px; text-align: center; border-bottom: solid 1px #999595;">
+            <td >{{value.nombre}}</td>
+            <td >{{value.cantidad}}</td>
+            <td >${{value.acumulado}}</td>
+        </tr>
+    {% endfor %}
+    <tr style="padding: 5px;">
+        <td > </td>
+        <th scope="row">Total:</th>
+        <td style="text-align: center;">$ {{total_carrito}}</td>
+    </tr>
+</table>
